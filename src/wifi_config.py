@@ -80,8 +80,8 @@ def parse_arguments() -> dict:
 
     arg_parser.add_argument(
         '--udp-address', 
-        help='host to stream sensor data to. Defaults to localhost (127.0.0.1)',
-        default='127.0.0.1',
+        help='host to stream sensor data to. Defaults to 192.168.2.1 the local ip address of the basestations',
+        default='192.168.2.1',
         type=str,
     )
 
