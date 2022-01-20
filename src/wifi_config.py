@@ -100,6 +100,14 @@ def parse_arguments() -> dict:
     )
 
     arg_parser.add_argument(
+        '--ipc-port-subx',
+        help='IPC port used by zeroMQ',
+        default=5555,
+        type=int
+    )
+
+
+    arg_parser.add_argument(
         '--ipc-protocol',
         help='the protocol used for IPC with zeroMQ',
         default='tcp://127.0.0.1',
