@@ -52,12 +52,13 @@ def main():
 
         try:
             data, (ip, port) = udp_socket.recvfrom(1024)
-            if config['print']:
-                print(f'{ip}:{port} {data}')
         except Exception as e:
             logging.error(f'failed to receive from {wifi_target}: {e}')
             continue
 
+        if config['print']:
+            print(f'{ip}:{port} {data}')
+    
         # maybe implement tcp? any pros? any cons?
 
 if __name__ == '__main__':
