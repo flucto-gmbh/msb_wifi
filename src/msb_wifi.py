@@ -22,7 +22,7 @@ def main():
     logging.debug(f'hostname is: {hostname}')
 
     ctx = zmq.Context()
-    zmq_socket = ctx.socket(zmq.PUB)
+    zmq_socket = ctx.socket(zmq.SUB)
 
     try:
         zmq_socket.connect(connect_to)
