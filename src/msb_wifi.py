@@ -15,13 +15,14 @@ def main():
     config = init()
 
     logging.debug('msb_wifi.py starting up')
-
-    connect_to = f'{config["ipc_protocol"]}:{config["ipc_port"]}'
-
+    connect_to = f'{config["ipc_protocol"]}:{config["ipc_port_subx"]}'
     logging.debug(f'trying to bind zmq to {connect_to}')
 
+    hostname = socket.gethostname()
+    logging.debug(f'hostname is: {hostname}')
+
     ctx = zmq.Context()
-    zmq_socket = ctx.socket(zmq.SUB)
+    zmq_socket = ctx.socket(zmq.PUB)
 
     try:
         zmq_socket.connect(connect_to)
@@ -35,6 +36,7 @@ def main():
     logging.debug('successfully bound to zeroMQ receiver socket as subscriber')
 
     # open socket
+    logging.debug('creating UDP socket')
     try:
         udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     except Exception as e:
@@ -42,6 +44,7 @@ def main():
         sys.exit(-1)
 
     wifi_target = (config["udp_address"], config["udp_port"])
+    logging.debug(f'udp sicket target: {wifi_target}')
 
     logging.debug(f'entering endless loop')
 
@@ -75,7 +78,7 @@ def main():
         # try to send data to the specified ip via udp
         try:
             udp_socket.sendto(
-                json.dumps({topic : data}).encode(), 
+                json.dumps({"id" : hostname, topic : data}).encode(), 
                 wifi_target
             )
         except Exception as e:
