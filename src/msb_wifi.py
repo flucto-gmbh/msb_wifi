@@ -78,7 +78,7 @@ def main():
         # try to send data to the specified ip via udp
         try:
             udp_socket.sendto(
-                json.dumps({"id" : hostname, topic : data}).encode(), 
+                pickle.dumps( { hostname : {topic : data}}), 
                 wifi_target
             )
         except Exception as e:
