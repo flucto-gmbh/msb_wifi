@@ -93,7 +93,7 @@ def parse_arguments() -> dict:
     )
 
     arg_parser.add_argument(
-        '--ipc-port',
+        '--ipc-port-pubx',
         help='IPC port used by zeroMQ',
         default=5556,
         type=int

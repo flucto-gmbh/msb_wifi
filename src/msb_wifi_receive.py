@@ -29,7 +29,7 @@ def main():
         logging.fatal(f'failed to bind to zeromq socket: {e}')
         sys.exit(-1)
     
-    logging.debug('successfully bound to zeroMQ receiver socket as subscriber')
+    logging.debug('successfully bound to zeroMQ receiver socket as publisher')
 
     # open socket
     try:
@@ -55,6 +55,15 @@ def main():
         except Exception as e:
             logging.error(f'failed to receive from {wifi_target}: {e}')
             continue
+
+        data = pickle.loads(data)
+        
+        zmq_socket.send_multipart(
+            [
+                data['id'].encode('utf-8'),
+                pickle.dumps(data['payload'])
+            ]
+        )
 
         if config['print']:
             print(f'{ip}:{port} {data}')
