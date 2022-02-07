@@ -15,7 +15,7 @@ def main():
     config = init()
 
     logging.debug('msb_wifi.py starting up')
-    connect_to = f'{config["ipc_protocol"]}:{config["ipc_port"]}'
+    connect_to = f'{config["ipc_protocol"]}:{config["ipc_port_pubx"]}'
     logging.debug(f'trying to bind zmq to {connect_to}')
 
     hostname = socket.gethostname()
